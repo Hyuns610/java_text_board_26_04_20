@@ -2,7 +2,8 @@ package com.jhs;
 
 import com.jhs.domain.article.Article;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 //TIP 코드를 <b>실행</b>하려면 <shortcut actionId="Run"/>을(를) 누르거나
@@ -10,7 +11,7 @@ import java.util.Scanner;
 public class Main {
   public static void main(String[] args){
     Scanner sc = new Scanner(System.in);
-    Article lastArticle = null;
+    List<Article> articles = new ArrayList<>();
     int lastId = 0;
 
     System.out.println("== 자바 게시판 시작 ==");
@@ -36,26 +37,22 @@ public class Main {
 
         System.out.println("생성 된 게시물 객체 : " + article);
 
-        // 생성 된 게시물 객체를 공유
-        lastArticle = article;
+        articles.add(article);
 
         System.out.printf("%d번 게시물이 등록되었습니다.\n", id);
       }
 
       else if (cmd.startsWith("/usr/article/detail")) {
         String[] urlBits = cmd.trim().split("/");
-        System.out.println(Arrays.toString(urlBits));
 
-        int id = Integer.parseInt(urlBits[4]);
-
-        Article article = lastArticle;
-
-        if(article == null) {
-          System.out.println("해당 게시물은 존재하지 않습니다.");
+        if(articles.isEmpty()) {
+          System.out.println("게시물이 존재하지 않습니다.");
           continue;
         }
 
-        System.out.printf("== %d번 게시물 상세보기 ==\n", id);
+        Article article = articles.get(articles.size() - 1); // getLast() 로 대체 가능
+
+        System.out.printf("== %d번 게시물 상세보기 ==\n", article.id);
         System.out.printf("번호 : %d\n", article.id);
         System.out.printf("제목 : %s\n", article.title);
         System.out.printf("내용 : %s\n", article.content);
