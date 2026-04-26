@@ -1,4 +1,4 @@
-package com.jhs.domain.article;
+package com.jhs.domain.article.dto;
 
 public class Article {
   public int id;
