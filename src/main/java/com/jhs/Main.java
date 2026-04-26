@@ -45,17 +45,50 @@ public class Main {
       else if (cmd.startsWith("/usr/article/detail")) {
         String[] urlBits = cmd.trim().split("/");
 
+        if(urlBits.length < 5) {
+          System.out.println("id를 입력해주세요.");
+          continue;
+        }
+
+        int id = 0;
+
+        try {
+          id = Integer.parseInt(urlBits[4]);
+        } catch(NumberFormatException e) {
+          System.out.println("id를 숫자형태로 입력해주세요.");
+          continue;
+        }
+
         if(articles.isEmpty()) {
           System.out.println("게시물이 존재하지 않습니다.");
           continue;
         }
 
-        Article article = articles.get(articles.size() - 1); // getLast() 로 대체 가능
+        /*Article findArticle = null;
+        for (int i = 0; i < articles.size(); i++) {
+          Article article = articles.get(i);
 
-        System.out.printf("== %d번 게시물 상세보기 ==\n", article.id);
-        System.out.printf("번호 : %d\n", article.id);
-        System.out.printf("제목 : %s\n", article.title);
-        System.out.printf("내용 : %s\n", article.content);
+          if(article.id == id) {
+            findArticle = article;
+            break;
+          }
+        }*/
+
+        // 내가 입력한 id와 리스트 내부에 있는 게시물 객체의 id랑 일치한 게시물 객체만 필터링
+        int finalId = id;
+        Article findArticle = articles.stream()
+            .filter(article -> article.id == finalId) // 필터링
+            .findFirst().orElse(null); // 찾으면 찾은 것중에 첫 번째거를 리턴, 못 찾으면 null을 반환
+
+        if(findArticle == null) {
+          System.out.println("해당 게시물은 존재하지 않습니다.");
+          continue;
+        }
+
+        System.out.printf("== %d번 게시물 상세보기 ==\n", findArticle.id);
+        System.out.printf("번호 : %d\n", findArticle.id);
+        System.out.printf("제목 : %s\n", findArticle.title);
+        System.out.printf("내용 : %s\n", findArticle.content);
 
       }
 
