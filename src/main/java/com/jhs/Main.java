@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Main {
   public static void main(String[] args){
     Scanner sc = new Scanner(System.in);
+    Article lastArticle = null;
     int lastId = 0;
 
     System.out.println("== 자바 게시판 시작 ==");
@@ -34,7 +35,26 @@ public class Main {
 
         System.out.println("생성 된 게시물 객체 : " + article);
 
+        // 생성 된 게시물 객체를 공유
+        lastArticle = article;
+
         System.out.printf("%d번 게시물이 등록되었습니다.\n", id);
+      }
+
+      else if (cmd.equals("/usr/article/detail")) {
+
+        Article article = lastArticle;
+
+        if(article == null) {
+          System.out.println("해당 게시물은 존재하지 않습니다.");
+          continue;
+        }
+
+        System.out.printf("== %d번 게시물 상세보기 ==\n", article.id);
+        System.out.printf("번호 : %d\n", article.id);
+        System.out.printf("제목 : %s\n", article.title);
+        System.out.printf("내용 : %s\n", article.content);
+
       }
 
       else if (cmd.equals("exit")) {
