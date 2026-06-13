@@ -3,17 +3,28 @@ package com.jhs.domain.article.controller;
 import com.jhs.domain.article.dto.Article;
 import com.jhs.domain.article.service.ArticleService;
 import com.jhs.global.base.container.Container;
+import com.jhs.global.base.controller.BaseController;
+import com.jhs.global.base.rq.Rq;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
-public class ArticleController {
+public class ArticleController implements BaseController {
   private ArticleService articleService;
 
   public ArticleController() {
     articleService = Container.articleService;
+  }
+
+  @Override
+  public void doAction(Rq rq) {
+    switch (rq.getUrlPathUserAction()) {
+      case "write" -> doWrite();
+      case "detail" -> showDetail(rq);
+      case "list" -> showList();
+    }
   }
 
   public void doWrite() {
@@ -29,15 +40,12 @@ public class ArticleController {
     System.out.printf("%d번 게시물이 등록되었습니다.\n", article.getId());
   }
 
-  public void showDetail(String urlPathVariable) {
-    int id = 0;
-    if(urlPathVariable != null) {
-      try {
-        id = Integer.parseInt(urlPathVariable);
-      } catch(NumberFormatException e) {
-        System.out.println("id를 숫자형태로 입력해주세요.");
-        return;
-      }
+  public void showDetail(Rq rq) {
+    int id = rq.getUrlPathVariable();
+
+    if(id == 0) {
+      System.out.println("올바른 값을 입력해주세요.");
+      return;
     }
 
     List<Article> articles = articleService.getArticles();

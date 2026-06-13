@@ -7,15 +7,10 @@ import com.jhs.global.base.rq.Rq;
 import java.util.Scanner;
 
 public class SystemController {
-  private ArticleController articleController;
-
-  public SystemController() {
-    articleController = Container.articleController;
-  }
-
   public void run() {
     Scanner sc = Container.sc;
     Rq rq = new Rq();
+
     System.out.println("== 자바 게시판 시작 ==");
 
     while (true) {
@@ -38,19 +33,30 @@ public class SystemController {
         break;
       }
 
-      switch (rq.getUrlPathUserType()) {
-        case "usr" -> {
-          switch (rq.getUrlPathControllerName()) {
-            case "article" -> {
-              switch (rq.getUrlPathUserAction()) {
-                case "write" -> articleController.doWrite();
-                case "detail" -> articleController.showDetail();
-                case "list" -> articleController.showList();
-              }
-            }
+      if(!rq.getUrlPathUserType().startsWith("usr")) {
+        System.out.println("명령어롤 확인 후 다시 입력해주세요.");
+        return;
+      }
+
+      BaseController baseController = getControllerByRequestUrl(rq);
+
+      if(baseController != null) {
+        baseController.doAction(rq);
+      }
+    }
+  }
+
+  private BaseController getControllerByRequestUrl(Rq rq) {
+    switch (rq.getUrlPathUserType()) {
+      case "usr" -> {
+        switch (rq.getUrlPathControllerName()) {
+          case "article" -> {
+              return Container.articleController;
           }
         }
       }
     }
+
+    return null;
   }
 }

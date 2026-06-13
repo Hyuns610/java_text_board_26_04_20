@@ -5,7 +5,6 @@ import lombok.Setter;
 
 public class Rq {
   @Getter
-  @Setter
   public String url;
 
   @Getter
@@ -26,13 +25,6 @@ public class Rq {
 
   public String getActionPath() {
     String[] urlBits = url.trim().split("/");
-
-    //if(urlBits.length < 4) {
-    //  System.out.println("올바른 명령어 형식이 아닙니다.(예: /usr/article/list)");
-     // return null;
-   // }
-
-    // ["", "usr", "article", "list"]
 
     urlPathUserType = urlBits[1];
     urlPathControllerName = urlBits[2];
