@@ -2,6 +2,7 @@ package com.jhs.domain.member.controller;
 
 import com.jhs.domain.article.dto.Article;
 import com.jhs.domain.article.member.member.dto.Member;
+import com.jhs.domain.member.service.MemberService;
 import com.jhs.global.base.container.Container;
 import com.jhs.global.base.controller.BaseController;
 import com.jhs.global.base.rq.Rq;
@@ -10,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MemberController implements BaseController {
-  private List<Member> members;
+  private MemberService memberService;
 
   public MemberController() {
-    members = new ArrayList<>();
+    memberService = Container.memberService;
   }
 
   @Override
@@ -87,9 +88,7 @@ public class MemberController implements BaseController {
       break;
     }
 
-    Member member = new Member(username, password, name);
-
-    members.add(member);
+    Member member = memberService.join(username, password, name);
 
     System.out.printf("'%s'님 회원가입 되었습니다.\n", member.getName());
   }
