@@ -40,8 +40,7 @@ public class Rq {
 
     try {
       id = Integer.parseInt(urlBits[4]);
-    } catch(ArrayIndexOutOfBoundsException | NumberFormatException e) {
-      System.out.println("올바른 값을 입력해주세요.");
+    } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
       return id;
     }
 

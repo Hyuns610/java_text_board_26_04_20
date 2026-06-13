@@ -4,9 +4,7 @@ import com.jhs.domain.article.dto.Article;
 import com.jhs.domain.article.repository.ArticleRepository;
 import com.jhs.global.base.container.Container;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class ArticleService {
   private ArticleRepository articleRepository;
@@ -25,5 +23,9 @@ public class ArticleService {
 
   public Article findById(int id) {
     return articleRepository.findById(id);
+  }
+
+  public void modify(int id, String title, String content) {
+    articleRepository.modify(id, title, content);
   }
 }

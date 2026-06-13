@@ -1,6 +1,5 @@
 package com.jhs.domain.article.dto;
 
-
 import lombok.*;
 
 @Getter

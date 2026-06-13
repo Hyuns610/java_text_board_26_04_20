@@ -6,10 +6,7 @@ import com.jhs.global.base.container.Container;
 import com.jhs.global.base.controller.BaseController;
 import com.jhs.global.base.rq.Rq;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class ArticleController implements BaseController {
   private ArticleService articleService;
@@ -23,6 +20,7 @@ public class ArticleController implements BaseController {
     switch (rq.getUrlPathUserAction()) {
       case "write" -> doWrite();
       case "detail" -> showDetail(rq);
+      case "modify" -> doModify(rq);
       case "list" -> showList();
     }
   }
@@ -37,7 +35,7 @@ public class ArticleController implements BaseController {
 
     Article article = articleService.write(title, content);
 
-    System.out.printf("%d번 게시물이 등록되었습니다.\n", article.getId());
+    System.out.printf("%d번 게시물이 등록 되었습니다.\n", article.getId());
   }
 
   public void showDetail(Rq rq) {
@@ -50,14 +48,14 @@ public class ArticleController implements BaseController {
 
     List<Article> articles = articleService.getArticles();
 
-    if(articles.isEmpty()) {
+    if (articles.isEmpty()) {
       System.out.println("게시물이 존재하지 않습니다.");
       return;
     }
 
     Article article = articleService.findById(id);
 
-    if(article == null) {
+    if (article == null) {
       System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
       return;
     }
@@ -71,7 +69,7 @@ public class ArticleController implements BaseController {
   public void showList() {
     List<Article> articles = articleService.getArticles();
 
-    if(articles.isEmpty()) {
+    if (articles.isEmpty()) {
       System.out.println("게시물이 존재하지 않습니다.");
       return;
     }
@@ -79,10 +77,43 @@ public class ArticleController implements BaseController {
     System.out.println("== 게시물 리스트 ==");
     System.out.println("번호 | 제목");
 
-    // 내림차순 출력
     for (int i = articles.size() - 1; i >= 0; i--) {
       Article article = articles.get(i);
       System.out.printf("%d | %s\n", article.getId(), article.getTitle());
     }
+  }
+
+  private void doModify(Rq rq) {
+    int id = rq.getUrlPathVariable();
+
+    if(id == 0) {
+      System.out.println("올바른 값을 입력해주세요.");
+      return;
+    }
+
+    List<Article> articles = articleService.getArticles();
+
+    if (articles.isEmpty()) {
+      System.out.println("게시물이 존재하지 않습니다.");
+      return;
+    }
+
+    Article article = articleService.findById(id);
+
+    if (article == null) {
+      System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+      return;
+    }
+
+    System.out.printf("== %d번 게시물 수정 ==\n", id);
+    System.out.print("새 제목 : ");
+    String title = Container.sc.nextLine();
+
+    System.out.print("새 내용 : ");
+    String content = Container.sc.nextLine();
+
+    articleService.modify(id, title, content);
+
+    System.out.printf("%d번 게시물을 수정하였습니다.\n", id);
   }
 }

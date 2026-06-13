@@ -1,5 +1,6 @@
 package com.jhs.global.base.controller;
 
+import com.jhs.global.base.controller.BaseController;
 import com.jhs.domain.article.controller.ArticleController;
 import com.jhs.global.base.container.Container;
 import com.jhs.global.base.rq.Rq;
@@ -7,6 +8,7 @@ import com.jhs.global.base.rq.Rq;
 import java.util.Scanner;
 
 public class SystemController {
+
   public void run() {
     Scanner sc = Container.sc;
     Rq rq = new Rq();
@@ -34,7 +36,7 @@ public class SystemController {
       }
 
       if(!rq.getUrlPathUserType().startsWith("usr")) {
-        System.out.println("명령어롤 확인 후 다시 입력해주세요.");
+        System.out.println("명령어를 확인 후 다시 입력해주세요.");
         return;
       }
 
@@ -43,6 +45,7 @@ public class SystemController {
       if(baseController != null) {
         baseController.doAction(rq);
       }
+
     }
   }
 
@@ -51,7 +54,7 @@ public class SystemController {
       case "usr" -> {
         switch (rq.getUrlPathControllerName()) {
           case "article" -> {
-              return Container.articleController;
+            return Container.articleController;
           }
         }
       }

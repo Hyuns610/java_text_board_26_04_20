@@ -35,7 +35,16 @@ public class ArticleRepository {
 
   public Article findById(int id) {
     return articles.stream()
-        .filter(article -> article.getId() == id) // 필터링
-        .findFirst().orElse(null); // 찾으면 찾은 것중에 첫 번째거를 리턴, 못 찾으면 null을 반환
+        .filter(article -> article.getId() == id)
+        .findFirst().orElse(null);
+  }
+
+  public void modify(int id, String title, String content) {
+    Article article = findById(id);
+
+    if(article == null) return;
+
+    article.setTitle(title);
+    article.setContent(content);
   }
 }
