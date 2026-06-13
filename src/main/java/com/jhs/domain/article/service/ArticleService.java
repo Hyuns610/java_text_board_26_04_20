@@ -1,41 +1,29 @@
 package com.jhs.domain.article.service;
 
 import com.jhs.domain.article.dto.Article;
+import com.jhs.domain.article.repository.ArticleRepository;
+import com.jhs.global.base.container.Container;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
 public class ArticleService {
-  private List<Article> articles;
+  private ArticleRepository articleRepository;
 
   public ArticleService() {
-    articles = new ArrayList<>();
-
-    makeArticleTestData();
-  }
-
-  void makeArticleTestData() {
-    IntStream.rangeClosed(1, 5)
-        .forEach(
-            i -> write("제목" + i, "내용" + i)
-        );
+    articleRepository = Container.articleRepository;
   }
 
   public Article write(String title, String content) {
-    Article article = new Article(title, content);
-    articles.add(article);
-
-    return article;
+    return articleRepository.write(title, content);
   }
 
   public List<Article> getArticles() {
-    return articles;
+    return articleRepository.findByAll();
   }
 
   public Article findById(int id) {
-    return articles.stream()
-        .filter(article -> article.id == id) // 필터링
-        .findFirst().orElse(null); // 찾으면 찾은 것중에 첫 번째거를 리턴, 못 찾으면 null을 반환
+    return articleRepository.findById(id);
   }
 }
