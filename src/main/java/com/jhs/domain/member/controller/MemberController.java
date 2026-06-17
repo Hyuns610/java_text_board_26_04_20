@@ -79,7 +79,7 @@ public class MemberController implements BaseController {
       break;
     }
 
-    System.out.printf("'%s'님 로그인 되었습니다.", member.getUsername());
+    System.out.printf("'%s'님 로그인 되었습니다.\n", member.getUsername());
   }
 
   private void doJoin() {
