@@ -6,11 +6,13 @@ import com.jhs.domain.article.service.ArticleService;
 import com.jhs.domain.member.controller.MemberController;
 import com.jhs.domain.member.repository.MemberRepository;
 import com.jhs.domain.member.service.MemberService;
+import com.jhs.global.session.Session;
 
 import java.util.Scanner;
 
 public class Container {
   public static Scanner sc;
+  public static Session session;
 
   public static MemberRepository memberRepository;
   public static ArticleRepository articleRepository;
@@ -23,6 +25,7 @@ public class Container {
 
   static {
     sc = new Scanner(System.in);
+    session = new Session();
 
     memberRepository = new MemberRepository();
     articleRepository = new ArticleRepository();

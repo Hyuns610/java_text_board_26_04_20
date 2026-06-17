@@ -1,14 +1,10 @@
 package com.jhs.domain.member.controller;
 
-import com.jhs.domain.article.dto.Article;
 import com.jhs.domain.article.member.member.dto.Member;
 import com.jhs.domain.member.service.MemberService;
 import com.jhs.global.base.container.Container;
 import com.jhs.global.base.controller.BaseController;
 import com.jhs.global.base.rq.Rq;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MemberController implements BaseController {
   private MemberService memberService;
@@ -20,12 +16,29 @@ public class MemberController implements BaseController {
   @Override
   public void doAction(Rq rq) {
     switch (rq.getUrlPathUserAction()) {
-      case "join" -> doJoin();
-      case "login" ->doLogin();
+      case "join" -> doJoin(rq);
+      case "login" -> doLogin(rq);
+      case "logout" -> doLogout(rq);
     }
   }
 
-  private void doLogin() {
+  private void doLogout(Rq rq) {
+    if(rq.isLogout()) {
+      System.out.println("이미 로그아웃 되어 있습니다.");
+      return;
+    }
+
+    rq.removeAttr("loginedMember");
+
+    System.out.println("로그아웃 되었습니다.");
+  }
+
+  private void doLogin(Rq rq) {
+    if(rq.isLogined()) {
+      System.out.println("이미 로그인 되어 있습니다.");
+      return;
+    }
+
     String username;
     String password;
     Member member;
@@ -79,10 +92,17 @@ public class MemberController implements BaseController {
       break;
     }
 
+    rq.setAttr("loginedMember", member);
+
     System.out.printf("'%s'님 로그인 되었습니다.\n", member.getUsername());
   }
 
-  private void doJoin() {
+  private void doJoin(Rq rq) {
+    if(rq.isLogined()) {
+      System.out.println("이미 로그인 되어 있습니다.");
+      return;
+    }
+
     String username;
     String password;
     String passwordConfirm;
