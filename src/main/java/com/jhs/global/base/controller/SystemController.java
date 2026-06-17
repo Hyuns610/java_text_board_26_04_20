@@ -4,8 +4,11 @@ import com.jhs.domain.article.member.member.dto.Member;
 import com.jhs.global.base.controller.BaseController;
 import com.jhs.domain.article.controller.ArticleController;
 import com.jhs.global.base.container.Container;
+import com.jhs.global.base.interceptor.Interceptor;
 import com.jhs.global.base.rq.Rq;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SystemController {
@@ -20,6 +23,7 @@ public class SystemController {
 
       if(rq.isLogined()) {
         Member member = rq.getLoginedMember();
+        promptName = member.getUsername();
       }
 
       System.out.printf("%s) ", promptName);
@@ -46,6 +50,8 @@ public class SystemController {
         return;
       }
 
+      if(!runInterceptor(rq)) continue;
+
       BaseController baseController = getControllerByRequestUrl(rq);
 
       if(baseController != null) {
@@ -70,5 +76,19 @@ public class SystemController {
     }
 
     return null;
+  }
+  private boolean runInterceptor(Rq rq) {
+    List<Interceptor> interceptors = new ArrayList<>();
+
+    interceptors.add(Container.needLoginInterceptor);
+    interceptors.add(Container.needLogoutInterceptor);
+
+    for(Interceptor interceptor : interceptors) {
+      if(!interceptor.run(rq)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
