@@ -1,5 +1,6 @@
 package com.jhs.global.base.controller;
 
+import com.jhs.domain.article.member.member.dto.Member;
 import com.jhs.global.base.controller.BaseController;
 import com.jhs.domain.article.controller.ArticleController;
 import com.jhs.global.base.container.Container;
@@ -15,7 +16,14 @@ public class SystemController {
     System.out.println("== 자바 게시판 시작 ==");
 
     while (true) {
-      System.out.print("명령) ");
+      String promptName = "명령";
+
+      if(rq.isLogined()) {
+        Member member = (Member) rq.getAttr("loginedMember");
+        promptName = member.getUsername();
+      }
+
+      System.out.printf("%s) ", promptName);
       String cmd = sc.nextLine().trim();
 
       rq.setCommand(cmd);
