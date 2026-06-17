@@ -1,5 +1,6 @@
 package com.jhs.global.base.rq;
 
+import com.jhs.domain.article.member.member.dto.Member;
 import com.jhs.global.base.container.Container;
 import com.jhs.global.session.Session;
 import lombok.Getter;
@@ -89,5 +90,9 @@ public class Rq {
 
   public boolean hasAttr(String key) {
     return session.hasAttribute(key);
+  }
+
+  public Member getLoginedMember() {
+    return (Member) getAttr(loginedMember);
   }
 }

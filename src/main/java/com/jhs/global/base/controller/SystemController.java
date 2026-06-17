@@ -19,8 +19,7 @@ public class SystemController {
       String promptName = "명령";
 
       if(rq.isLogined()) {
-        Member member = (Member) rq.getAttr("loginedMember");
-        promptName = member.getUsername();
+        Member member = rq.getLoginedMember();
       }
 
       System.out.printf("%s) ", promptName);
