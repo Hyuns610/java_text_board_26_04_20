@@ -4,6 +4,7 @@ import com.jhs.domain.article.member.member.dto.Member;
 import com.jhs.domain.member.repository.MemberRepository;
 import com.jhs.global.base.container.Container;
 
+import javax.sql.RowSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,5 +21,9 @@ public class MemberService {
 
   public Member findByUsername(String username) {
     return memberRepository.findByUsername(username);
+  }
+
+  public Member findById(int id) {
+    return memberRepository.findById(id);
   }
 }
