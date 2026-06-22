@@ -3,12 +3,19 @@ package com.jhs.global.base.rq;
 import com.jhs.domain.article.member.member.dto.Member;
 import com.jhs.global.base.container.Container;
 import com.jhs.global.session.Session;
+import com.jhs.global.util.Ut;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Map;
 
 public class Rq {
   @Getter
   public String url;
+  @Getter
+  public Map<String, String> params;
+  @Getter
+  public String urlPath;
 
   @Getter
   @Setter
@@ -32,10 +39,12 @@ public class Rq {
 
   public void setCommand(String url) {
     this.url = url;
+    this.params = Ut.getParamFromUrl(url);
+    this.urlPath = Ut.getPathFromUrl(url);
   }
 
   public String getActionPath() {
-    String[] urlBits = url.trim().split("/");
+    String[] urlBits = urlPath.trim().split("/");
 
     urlPathUserType = urlBits[1];
     urlPathControllerName = urlBits[2];
@@ -45,7 +54,7 @@ public class Rq {
   }
 
   public int getUrlPathVariable() {
-    String[] urlBits = url.trim().split("/");
+    String[] urlBits = urlPath.trim().split("/");
 
     int id = 0;
 

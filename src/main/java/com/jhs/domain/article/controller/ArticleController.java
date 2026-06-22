@@ -8,7 +8,9 @@ import com.jhs.global.base.container.Container;
 import com.jhs.global.base.controller.BaseController;
 import com.jhs.global.base.rq.Rq;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ArticleController implements BaseController {
   private ArticleService articleService;
@@ -23,7 +25,7 @@ public class ArticleController implements BaseController {
   public void doAction(Rq rq) {
     switch (rq.getUrlPathUserAction()) {
       case "write" -> doWrite(rq);
-      case "list" -> showList();
+      case "list" -> showList(rq);
       case "detail" -> showDetail(rq);
       case "modify" -> doModify(rq);
       case "delete" -> doDelete(rq);
@@ -75,7 +77,11 @@ public class ArticleController implements BaseController {
     System.out.printf("작성자 : %s\n", article.getWriterName());
   }
 
-  public void showList() {
+  public void showList(Rq rq) {
+    String q = rq.getParams().get("q");
+    System.out.println("검색 키워드 : " + q);
+
+
     List<Article> articles = articleService.getArticles();
 
     if (articles.isEmpty()) {
