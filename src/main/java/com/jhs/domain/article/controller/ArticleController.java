@@ -8,9 +8,7 @@ import com.jhs.global.base.container.Container;
 import com.jhs.global.base.controller.BaseController;
 import com.jhs.global.base.rq.Rq;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ArticleController implements BaseController {
   private ArticleService articleService;
@@ -80,10 +78,8 @@ public class ArticleController implements BaseController {
   public void showList(Rq rq) {
     // 검색 키워드
     String q = rq.getParam("q", "");
-    System.out.println("검색 키워드 : " + q);
 
-
-    List<Article> articles = articleService.getArticles();
+    List<Article> articles = articleService.getArticles(q);
 
     if (articles.isEmpty()) {
       System.out.println("게시물이 존재하지 않습니다.");
