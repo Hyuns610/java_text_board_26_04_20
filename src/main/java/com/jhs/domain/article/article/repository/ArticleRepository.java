@@ -1,6 +1,6 @@
-package com.jhs.domain.article.repository;
+package com.jhs.domain.article.article.repository;
 
-import com.jhs.domain.article.dto.Article;
+import com.jhs.domain.article.article.dto.Article;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.jhs.domain.article.member.member.dto;
+package com.jhs.domain.member.member.dto;
 
 import lombok.*;
 

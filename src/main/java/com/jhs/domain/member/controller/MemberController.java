@@ -1,6 +1,6 @@
 package com.jhs.domain.member.controller;
 
-import com.jhs.domain.article.member.member.dto.Member;
+import com.jhs.domain.member.member.dto.Member;
 import com.jhs.domain.member.service.MemberService;
 import com.jhs.global.base.container.Container;
 import com.jhs.global.base.controller.BaseController;

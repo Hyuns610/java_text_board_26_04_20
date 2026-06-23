@@ -1,8 +1,8 @@
-package com.jhs.domain.article.controller;
+package com.jhs.domain.article.article.controller;
 
-import com.jhs.domain.article.dto.Article;
-import com.jhs.domain.article.member.member.dto.Member;
-import com.jhs.domain.article.service.ArticleService;
+import com.jhs.domain.article.article.dto.Article;
+import com.jhs.domain.member.member.dto.Member;
+import com.jhs.domain.article.article.service.ArticleService;
 import com.jhs.domain.member.service.MemberService;
 import com.jhs.global.base.container.Container;
 import com.jhs.global.base.controller.BaseController;

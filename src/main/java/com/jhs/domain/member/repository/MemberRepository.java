@@ -1,10 +1,9 @@
 package com.jhs.domain.member.repository;
 
-import com.jhs.domain.article.member.member.dto.Member;
+import com.jhs.domain.member.member.dto.Member;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class MemberRepository {
   private List<Member> members;

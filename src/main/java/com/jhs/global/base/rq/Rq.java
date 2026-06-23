@@ -1,6 +1,6 @@
 package com.jhs.global.base.rq;
 
-import com.jhs.domain.article.member.member.dto.Member;
+import com.jhs.domain.member.member.dto.Member;
 import com.jhs.global.base.container.Container;
 import com.jhs.global.session.Session;
 import com.jhs.global.util.Ut;

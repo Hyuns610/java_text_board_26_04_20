@@ -1,8 +1,6 @@
 package com.jhs.global.base.controller;
 
-import com.jhs.domain.article.member.member.dto.Member;
-import com.jhs.global.base.controller.BaseController;
-import com.jhs.domain.article.controller.ArticleController;
+import com.jhs.domain.member.member.dto.Member;
 import com.jhs.global.base.container.Container;
 import com.jhs.global.base.interceptor.Interceptor;
 import com.jhs.global.base.rq.Rq;

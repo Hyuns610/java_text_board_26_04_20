@@ -1,7 +1,7 @@
-package com.jhs.domain.article.service;
+package com.jhs.domain.article.article.service;
 
-import com.jhs.domain.article.dto.Article;
-import com.jhs.domain.article.repository.ArticleRepository;
+import com.jhs.domain.article.article.dto.Article;
+import com.jhs.domain.article.article.repository.ArticleRepository;
 import com.jhs.global.base.container.Container;
 
 import java.util.ArrayList;

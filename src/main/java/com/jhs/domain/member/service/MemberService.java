@@ -1,12 +1,8 @@
 package com.jhs.domain.member.service;
 
-import com.jhs.domain.article.member.member.dto.Member;
+import com.jhs.domain.member.member.dto.Member;
 import com.jhs.domain.member.repository.MemberRepository;
 import com.jhs.global.base.container.Container;
-
-import javax.sql.RowSet;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MemberService {
   private MemberRepository memberRepository;

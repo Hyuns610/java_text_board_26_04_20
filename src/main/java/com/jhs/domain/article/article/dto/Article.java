@@ -1,4 +1,4 @@
-package com.jhs.domain.article.dto;
+package com.jhs.domain.article.article.dto;
 
 import lombok.*;
 
