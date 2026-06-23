@@ -4,6 +4,7 @@ import com.jhs.domain.article.dto.Article;
 import com.jhs.domain.article.repository.ArticleRepository;
 import com.jhs.global.base.container.Container;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleService {
@@ -18,13 +19,35 @@ public class ArticleService {
   }
 
   public List<Article> getArticles() {
-    return articleRepository.findByAll();
+    return articleRepository.findAll();
   }
 
-  public List<Article> getArticles(String keyword) {
-    if(keyword.isEmpty()) return articleRepository.findByAll();
+  public List<Article> getArticles(String keyword, String sortCode) {
+    // 검색 수행
+    List<Article> filteredArticles = getFilteredArticles(keyword);
 
-    return getFilteredArticles(keyword);
+    // 정렬 수행
+    return sortedArticles(filteredArticles, sortCode);
+  }
+
+  private List<Article> sortedArticles(List<Article> articles, String sortCode) {
+    // 복사본을 생성
+    List<Article> sortedArticles = new ArrayList<>(articles);
+
+    if(!sortCode.isEmpty()) {
+      switch (sortCode) {
+        // ex) 21354 -> 2 - 1 = (양수) 12345 -> 2 - 3 = (음수) 12345 식으로 계산
+        case "idAsc": // 양수이면 자리를 바꾸고 음수이면 그대로
+          sortedArticles.sort((a1, a2) -> a1.getId() - a2.getId());
+          break;
+        case "idDesc": // 음수이면 자리를 바꾸고 양수이면 그대로
+        default:
+          sortedArticles.sort((a1, a2) -> a2.getId() - a1.getId());
+          break;
+      }
+    }
+
+    return sortedArticles;
   }
 
   private List<Article> getFilteredArticles(String keyword) {
