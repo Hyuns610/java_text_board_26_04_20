@@ -1,5 +1,6 @@
 package com.jhs.global.base.container;
 
+import com.jhs.domain.article.Board.controller.BoardController;
 import com.jhs.domain.article.Board.dto.Board;
 import com.jhs.domain.article.Board.repository.BoardRepository;
 import com.jhs.domain.article.Board.service.BoardService;
@@ -30,6 +31,7 @@ public class Container {
   public static MemberService memberService;
   public static ArticleService articleService;
 
+  public static BoardController boardController;
   public static MemberController memberController;
   public static ArticleController articleController;
 
@@ -48,6 +50,7 @@ public class Container {
     memberService = new MemberService();
     articleService = new ArticleService();
 
+    boardController = new BoardController();
     memberController = new MemberController();
     articleController = new ArticleController();
   }

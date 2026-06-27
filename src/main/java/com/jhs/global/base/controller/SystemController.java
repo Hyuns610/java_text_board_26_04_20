@@ -43,7 +43,7 @@ public class SystemController {
         break;
       }
 
-      if(!rq.getUrlPathUserType().startsWith("usr")) {
+      if(!rq.getUrlPathUserType().startsWith("usr") && !rq.getUrlPathUserType().startsWith("adm")) {
         System.out.println("명령어를 확인 후 다시 입력해주세요.");
         return;
       }
@@ -68,6 +68,13 @@ public class SystemController {
           }
           case "member" -> {
             return Container.memberController;
+          }
+        }
+      }
+      case "adm" -> {
+        switch (rq.getUrlPathControllerName()) {
+          case "board" -> {
+            return Container.boardController;
           }
         }
       }

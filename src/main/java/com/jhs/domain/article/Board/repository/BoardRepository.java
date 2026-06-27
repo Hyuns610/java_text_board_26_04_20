@@ -17,7 +17,7 @@ public class BoardRepository {
   }
 
   void makeTestData() {
-    boards.add(new Board("자유", "notice"));
+    boards.add(new Board("자유", "free"));
     boards.add(new Board("공지", "notice"));
   }
 
@@ -25,5 +25,25 @@ public class BoardRepository {
     return boards.stream()
         .filter(Board -> Board.getId() == id)
         .findFirst().orElse(null);
+  }
+
+  public Board findByBoardName(String boardName) {
+    return boards.stream()
+        .filter(board -> board.getName().equals(boardName))
+        .findFirst()
+        .orElse(null);
+  }
+
+  public Board findByBoardCode(String boardCode) {
+    return boards.stream()
+        .filter(board -> board.getCode().equals(boardCode))
+        .findFirst()
+        .orElse(null);
+  }
+
+  public void add(String name, String code) {
+    Board board = new Board(name, code);
+
+    boards.add(board);
   }
 }
