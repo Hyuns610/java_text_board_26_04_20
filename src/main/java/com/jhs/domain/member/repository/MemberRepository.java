@@ -2,6 +2,7 @@ package com.jhs.domain.member.repository;
 
 import com.jhs.domain.member.member.dto.Member;
 import com.jhs.domain.member.member.dto.Role;
+import com.jhs.global.util.Ut;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,11 @@ public class MemberRepository {
   }
 
   public Member join(String username, String password, String name, Role role) {
-    Member member = new Member(username, password, name, role);
+    String regDate = Ut.getNowDateStr();
+    String updateDate = Ut.getNowDateStr();
+
+
+    Member member = new Member(regDate, updateDate, username, password, name, role);
     members.add(member);
 
     return member;
